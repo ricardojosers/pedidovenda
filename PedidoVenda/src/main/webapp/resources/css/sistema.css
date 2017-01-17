@@ -68,6 +68,41 @@ h1 {
 	height: 35px;
 }
 
+.ui-selectmanycheckbox td {
+	border-width: 0px !important;
+	padding: 0px !important;
+}
+
+.ui-selectmanycheckbox td label {
+	padding-right: 10px;
+}
+
 .ui-selectoneradio td:nth-child(3) {
 	padding-left: 20px;
 }
+
+.produto-tabela {
+	width: 100% !important;
+}
+
+.produto-tabela input {
+	width: 99%;
+}
+
+/* Customiza TabView - início */
+.ui-tabs .ui-tabs-panel {
+    padding: 0.5em 0.2em !important;
+}
+
+.ui-tabs {
+    padding: 0px !important;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: -1px !important;
+}
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav {
+    padding: 0px !important;
+}
+/* Customiza TabView - fim */
