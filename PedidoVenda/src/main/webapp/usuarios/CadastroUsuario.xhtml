@@ -8,32 +8,50 @@
     <ui:define name="titulo">Novo usuário</ui:define>
     
     <ui:define name="corpo">
-    	<h1>Novo usuário</h1>
-    	
-    	<p:toolbar style="margin-top: 20px">
-    		<p:toolbarGroup>
-    			<p:button value="Novo" outcome="/usuarios/CadastroUsuario"/>
-    			<p:commandButton value="Salvar" id="botaoSalvar"/>
-    		</p:toolbarGroup>
-    		<p:toolbarGroup align="right">
-    			<p:button value="Pesquisa"/>
-    		</p:toolbarGroup>
-    	</p:toolbar>
+    	<form>
+	    	<h1>Novo usuário</h1>
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:button value="Novo" outcome="/usuarios/CadastroUsuario"/>
+	    			<p:commandButton value="Salvar" id="botaoSalvar"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios"/>
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	
+		    <p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+		    		columnClasses="rotulo, campo">
+		    	<p:outputLabel value="Nome" for="nome"/>
+		    	<p:inputText id="nome" size="60" maxlength="80"/>
+		    	
+		    	<p:outputLabel value="E-mail" for="email"/>
+		    	<p:inputText id="email" size="50" maxlength="80"/>
+		    	
+		    	<p:outputLabel value="Senha" for="senha"/>
+		    	<p:password id="senha"/>
+		    </p:panelGrid>
 
-	    <p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
-	    		columnClasses="rotulo, campo">
-	    	
-	    	<p:outputLabel value="Nome" for="nome"/>
-	    	<p:inputText id="nome" size="60" maxlength="80"/>
-	    	
-	    	<p:outputLabel value="E-mail" for="email"/>
-	    	<p:inputText id="email" size="50" maxlength="80"/>
-	    	
-	    	<p:outputLabel value="Senha" for="senha"/>
-	    	<p:password id="senha"/>
-	    
-	    </p:panelGrid>
-    
+            <p:panelGrid columns="2">
+	            <p:selectOneMenu id="grupo">
+	            	<f:selectItem itemLabel="Administradores"/>
+	            </p:selectOneMenu>	
+	            <p:commandButton value="Adicionar grupo" style="margin-top: 2px"/>
+            </p:panelGrid>
+            
+            <p:dataTable id="gruposTable" value="#{cadastroUsuarioBean.grupos}" var="grupo"
+            	style="margin-top: 20px" emptyMessage="Usuário não pertence a nenhum grupo."
+            	rows="5">
+            	<p:column headerText="Grupo" style="text-align: left; width: 95%">
+            		<h:outputText value="#{grupo}" />
+            	</p:column>
+            	
+            	<p:column style="width: 5%; text-align: center">
+            		<p:commandButton icon="ui-icon-trash" title="Excluir"/>
+            	</p:column>
+            
+            </p:dataTable>	    
+		</form>
     </ui:define>
-    
 </ui:composition>

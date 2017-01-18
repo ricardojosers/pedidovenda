@@ -18,7 +18,7 @@
 						<p:commandButton value="Salvar" id="botaoSalvar"/>
 					</p:toolbarGroup>
 					<p:toolbarGroup align="right">
-						<p:button value="Pesquisa"/>
+						<p:button value="Pesquisa" outcome="/clientes/PesquisaClientes"/>
 					</p:toolbarGroup>
 				</p:toolbar>
 				
@@ -42,6 +42,33 @@
 					<p:inputText id="email" size="50" maxlength="80"/>
 					
 				</p:panelGrid>
+				
+				<p:commandButton value="Adicionar endereço" style="margin: 10px 0px 0px 0px"/>
+				
+				<p:dataTable id="enderecosTable"
+					value="#{cadastroClienteBean.enderecos}" var="endereco" 
+					style="margin-top: 10px" emptyMessage="Nenhum endereco cadastrado."
+					rows="5">
+					<p:column headerText="Logradouro" style="text-align: left; width: 52%">
+						<h:outputLabel value="#{endereco.logradouro}" />
+					</p:column>
+					<p:column headerText="Número" style="text-align: left; width: 10%">
+						<h:outputLabel value="#{endereco.numero}"/>
+					</p:column>
+					<p:column headerText="Complemento" style="text-align: left; width:10%">
+						<h:outputLabel value="#{endereco.complemento}"/>
+					</p:column>
+					<p:column headerText="CEP" style="text-align: left; width: 10%">
+						<h:outputLabel value="#{endereco.cep}"/>
+					</p:column>
+					<p:column headerText="Cidade/UF" style="text-align: left; width: 10%">
+						<h:outputLabel value="#{endereco.cidade}/#{endereco.uf}"/>
+					</p:column>
+					<p:column style="width: 8%; text-align: center">
+						<p:button icon="ui-icon-pencil" title="Editar"/>
+						<p:commandButton icon="ui-icon-trash" title="Excluir"/>
+					</p:column>
+				</p:dataTable>
 					
 			</h:form>
 			
