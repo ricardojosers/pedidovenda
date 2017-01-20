@@ -8,6 +8,13 @@
 	<ui:define name="titulo">Novo cliente</ui:define>
 			
 		<ui:define name="corpo">
+		
+			<script>
+				function tratarInclusaoEndereco(args) {
+					if(!args.validationFailed)
+						PF('inclusaoEndereco').hide();
+				}
+			</script>
 			
 			<h:form>
 				<h1>Novo cliente</h1>
@@ -43,7 +50,8 @@
 					
 				</p:panelGrid>
 				
-				<p:commandButton value="Adicionar endereço" style="margin: 10px 0px 0px 0px"/>
+				<p:button value="Adicionar endereço" style="margin: 10px 0px 0px 0px"
+					onclick="PF('inclusaoEndereco').show(); return false;"/>
 				
 				<p:dataTable id="enderecosTable"
 					value="#{cadastroClienteBean.enderecos}" var="endereco" 
@@ -66,9 +74,53 @@
 					</p:column>
 					<p:column style="width: 8%; text-align: center">
 						<p:button icon="ui-icon-pencil" title="Editar"/>
-						<p:commandButton icon="ui-icon-trash" title="Excluir"/>
+						<p:commandButton icon="ui-icon-trash" title="Excluir"
+							oncomplete="PF('confirmacaoExclusao').show();"/>
 					</p:column>
 				</p:dataTable>
+				
+				<p:dialog id="inclusaoEnderecoDialog" header="Inclusão de endereço"
+					widgetVar="inclusaoEndereco" modal="true" resizable="false">
+					
+					<h:panelGroup id="inclusaoEnderecoPanel">
+						<p:messages/>
+						
+						<h:panelGrid columns="2" columnClasses="rotulo, campo">
+							<p:outputLabel value="Logradouro"/>
+							<p:inputText size="40" required="true" requiredMessage="Logradouro é obrigaório."/>
+							
+							<p:outputLabel value="Numero"/>
+							<p:inputText size="5" required="true" requiredMessage="Número é obrigatório."/>
+							
+							<p:outputLabel value="Complemento"/>
+							<p:inputText size="30" required="true" requiredMessage="Complemento é obrigatório."/>
+							
+							<p:outputLabel value="CEP"/>
+							<p:inputText size="10" required="true" requiredMessage="CEP é obrigatório."/>
+						</h:panelGrid>
+							
+						<h:panelGrid columns="4" columnClasses="rotulo, campo, campo, campo">
+							<p:outputLabel value="Cidade"/>
+							<p:inputText size="20" required="true" requiredMessage="Cidade é obrigaório."/>
+							
+							<p:outputLabel value="UF"/>
+							<p:inputText size="10" required="true" requiredMessage="UF é obrigatório."/>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" columnClasses="rotulo, campo">	
+							<p:outputLabel/>
+							<p:commandButton value="Incluir" oncomplete="tratarInclusaoEndereco(args)" 
+								update="inclusaoEnderecoDialog"/>
+						</h:panelGrid>
+					</h:panelGroup>
+				
+				</p:dialog>
+				
+				<p:confirmDialog header="Exclusão de endereço" 
+					message="Tem certeza que deseja excluir o endereço?" widgetVar="confirmacaoExclusao">
+					<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
+					<p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();"/>
+				</p:confirmDialog>
 					
 			</h:form>
 			
