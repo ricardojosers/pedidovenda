@@ -9,16 +9,19 @@
  
 package com.algaworks.pedidovenda.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
-@ManagedBean
-@RequestScoped
-public class CadastroClienteBean {
+@Named
+@ViewScoped
+public class CadastroClienteBean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private List<Cliente> clientes;
     
     public CadastroClienteBean() {

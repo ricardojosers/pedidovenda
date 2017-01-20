@@ -12,7 +12,7 @@ package com.algaworks.pedidovenda.controller;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 
 @ManagedBean
 @ViewScoped
