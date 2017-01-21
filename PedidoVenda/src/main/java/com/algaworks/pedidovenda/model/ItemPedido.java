@@ -1,5 +1,5 @@
 /*
- * @(#)Produto.java
+ * @(#)ItemPedido.java
  * 
  * Copyright 2014-2014, Ricardo Rodrigues.
  * 
@@ -23,22 +23,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="produto")
-public class Produto implements Serializable {
+@Table(name="item_pedido")
+public class ItemPedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private String nome;
-
-    private String sku;
+    private Integer quantidade;
 
     private BigDecimal valorUnitario;
 
-    private Integer quantidadeEstoque;
-
-    private Categoria categoria;
+    private Produto produto;
+    
+    private Pedido pedido;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -50,22 +48,13 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    @Column(nullable=false, length=80)
-    public String getNome() {
-        return nome;
+    @Column(nullable=false, length=3)
+    public Integer getQuantidade() {
+        return quantidade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    @Column(nullable=false, length=20, unique=true)
-    public String getSku() {
-        return sku;
-    }
-
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
     }
 
     @Column(name="valor_unitario", nullable=false, precision=10, scale=2)
@@ -77,23 +66,24 @@ public class Produto implements Serializable {
         this.valorUnitario = valorUnitario;
     }
 
-    @Column(name="quantidade_estoque", nullable=false, length=5)
-    public Integer getQuantidadeEstoque() {
-        return quantidadeEstoque;
+    @ManyToOne
+    @JoinColumn(name="produto_id", nullable=false)
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
-        this.quantidadeEstoque = quantidadeEstoque;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     @ManyToOne
-    @JoinColumn(name="categoria_id", nullable=false)
-    public Categoria getCategoria() {
-        return categoria;
+    @JoinColumn(name="pedido_id", nullable=false)
+    public Pedido getPedido() {
+        return pedido;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
     @Override
@@ -109,7 +99,7 @@ public class Produto implements Serializable {
         if(this == obj) return true;
         if(obj == null) return false;
         if(getClass() != obj.getClass()) return false;
-        Produto other = (Produto)obj;
+        ItemPedido other = (ItemPedido)obj;
         if(id == null) {
             if(other.id != null) return false;
         }
