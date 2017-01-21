@@ -14,7 +14,7 @@
 	    	<p:toolbar style="margin-top: 20px; padding: 5px;">
 	    		<p:toolbarGroup>
 	    			<p:button value="Novo" outcome="/produtos/CadastroProduto"/>
-	    			<p:commandButton value="Salvar" id="botaoSalvar" ajax="false"/>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroProdutoBean.salvar}"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
 	    			<p:button value="Pesquisa" outcome="/produtos/PesquisaProdutos"/>
