@@ -8,13 +8,13 @@
     <ui:define name="titulo">Novo Produto</ui:define>
     
     <ui:define name="corpo">
-    	<form>
+    	<h:form>
 	    	<h1>Novo produto</h1>
 	    	
 	    	<p:toolbar style="margin-top: 20px; padding: 5px;">
 	    		<p:toolbarGroup>
 	    			<p:button value="Novo" outcome="/produtos/CadastroProduto"/>
-	    			<p:commandButton value="Salvar" id="botaoSalvar"/>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" ajax="false"/>
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
 	    			<p:button value="Pesquisa" outcome="/produtos/PesquisaProdutos"/>
@@ -46,7 +46,7 @@
 	    		<p:inputText id="estoque" size="10" maxlength="4"/>
 	    		
 	    	</p:panelGrid>
-	    </form>
+	    </h:form>
     </ui:define>
     
 </ui:composition>
