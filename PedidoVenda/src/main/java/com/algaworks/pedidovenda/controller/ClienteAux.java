@@ -12,21 +12,21 @@ package com.algaworks.pedidovenda.controller;
 import java.util.List;
 
 
-public class Cliente {
+public class ClienteAux {
     
     private String nome;
     private String tipoDocumento;
     private String numeroDocumento;
     private String email;
-    private List<Endereco> enderecos;
+    private List<EnderecoAux> enderecos;
     
-    public Cliente(String nome, String tipoDocumento, String numeroDocumento) {
+    public ClienteAux(String nome, String tipoDocumento, String numeroDocumento) {
         this.nome = nome;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
     }
     
-    public Cliente(String nome, String tipoDocumento, String numeroDocumento, String email, List<Endereco> enderecos) {
+    public ClienteAux(String nome, String tipoDocumento, String numeroDocumento, String email, List<EnderecoAux> enderecos) {
         this(nome, tipoDocumento, numeroDocumento);
         this.email = email;
         this.enderecos = enderecos;
@@ -56,10 +56,10 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-    public List<Endereco> getEnderecos() {
+    public List<EnderecoAux> getEnderecos() {
         return enderecos;
     }
-    public void setEnderecos(List<Endereco> enderecos) {
+    public void setEnderecos(List<EnderecoAux> enderecos) {
         this.enderecos = enderecos;
     }
 }

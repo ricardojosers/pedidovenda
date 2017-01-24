@@ -12,6 +12,24 @@ package com.algaworks.pedidovenda.model;
 
 public enum TipoPessoa {
     
-    FISICA, JURIDICA
+    FISICA("Física"), JURIDICA("Jurídica");
+    
+    String nomePessoa;
+    
+    TipoPessoa() {
+        
+    }
+    
+    TipoPessoa(String nomePessoa) {
+        this.nomePessoa = nomePessoa;
+    }
+    
+    public String getNomePessoa() {
+        return nomePessoa;
+    }
+    
+    public void setNomePessoa(String nomePessoa) {
+        this.nomePessoa = nomePessoa;
+    }
     
 }

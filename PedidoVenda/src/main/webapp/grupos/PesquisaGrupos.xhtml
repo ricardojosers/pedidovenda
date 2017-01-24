@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa de grupos</ui:define>
+	
+	<ui:define name="corpo">
+		<h:form>
+			<h1>Pesquisa de grupos</h1>
+			
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"/>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/grupos/CadastroGrupo"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" style="width:100%; margin-top: 20px"
+				columnClasses="rotulo, campo">
+					
+					<p:outputLabel value="Nome" for="nome"/>
+					<p:inputText id="nome" size="40"/>
+					
+					<p:outputLabel value="Descrição" for="descricao"/>
+					<p:inputText id="descricao" size="80"/>
+					
+			</p:panelGrid>
+			
+			<p:dataTable id="gruposTable" value="#{pesquisaGrupoBean.grupos}" var="grupo" 
+			    style="margin-top: 20px" emptyMessage="Nenhum grupo selectionado." 
+			    rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				rowsPerPageTemplate="10, 20, 30">
+				
+				<p:column headerText="Nome" style="text-align: left; width: 150px">
+					<h:outputLabel value="#{grupo.nome}" />
+				</p:column>
+				
+				<p:column headerText="Descrição" style="text-align: left; width: 150px">
+					<h:outputLabel value="#{grupo.descricao}" />
+				</p:column>
+				
+				<p:column style="width: 8px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"/>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="PF('confirmacaoExclusao').show();"/>
+				</p:column>
+				
+			</p:dataTable>
+			
+			<p:confirmDialog header="Exclusão de grupo" 
+				message="Tem certeza que deseja excluir o grupo?" widgetVar="confirmacaoExclusao">
+				<p:button value="Não" onclick="PF('confirmacaoExclusao').hide(); return false;"/>
+				<p:commandButton value="Sim" oncomplete="PF('confirmacaoExclusao').hide();" />
+			</p:confirmDialog>
+		
+		</h:form>
+	
+	</ui:define>
+	
+</ui:composition>

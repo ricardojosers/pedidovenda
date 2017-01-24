@@ -10,7 +10,7 @@
 package com.algaworks.pedidovenda.controller;
 
 
-public class Endereco {
+public class EnderecoAux {
     
     private String logradouro;
     private String numero;
@@ -19,7 +19,7 @@ public class Endereco {
     private String cidade;
     private String uf;
     
-    public Endereco(String logradouro, String numero, String complemento,
+    public EnderecoAux(String logradouro, String numero, String complemento,
         String cep, String cidade, String uf) {
         super();
         this.logradouro = logradouro;

@@ -19,16 +19,16 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class PesquisaUsuariosBean {
     
-    private List<Usuario> usuarios;
+    private List<UsuarioAux> usuarios;
     
     public PesquisaUsuariosBean() {
         usuarios = new ArrayList<>();
-        usuarios.add(new Usuario("João das Couves", "joaodas_couves42@hotmail.com"));
-        usuarios.add(new Usuario("Maria Abadia das Couves", "mariaabadiadascouves2013@gmail.com"));
-        usuarios.add(new Usuario("João das Couves Júnior", "junior_couves_joao@yahoo.com.br"));
+        usuarios.add(new UsuarioAux("João das Couves", "joaodas_couves42@hotmail.com"));
+        usuarios.add(new UsuarioAux("Maria Abadia das Couves", "mariaabadiadascouves2013@gmail.com"));
+        usuarios.add(new UsuarioAux("João das Couves Júnior", "junior_couves_joao@yahoo.com.br"));
     }
     
-    public List<Usuario> getUsuarios() {
+    public List<UsuarioAux> getUsuarios() {
         return usuarios;
     }
 }

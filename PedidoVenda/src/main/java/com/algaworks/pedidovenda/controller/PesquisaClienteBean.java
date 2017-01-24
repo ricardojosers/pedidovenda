@@ -19,16 +19,16 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class PesquisaClienteBean {
     
-    private List<Cliente> clientes;
+    private List<ClienteAux> clientes;
     
     public PesquisaClienteBean() {
         clientes = new ArrayList<>();
-        clientes.add(new Cliente("Supermercado João das Couves Ltda", "Jurídica", "02.493.738/0001-83"));
-        clientes.add(new Cliente("Maria Conceição da Abadia", "Física", "045.938.553-99"));
-        clientes.add(new Cliente("Supermercado Preço Bom Ltda", "Jurídica", "08.111.344/0001-12"));
+        clientes.add(new ClienteAux("Supermercado João das Couves Ltda", "Jurídica", "02.493.738/0001-83"));
+        clientes.add(new ClienteAux("Maria Conceição da Abadia", "Física", "045.938.553-99"));
+        clientes.add(new ClienteAux("Supermercado Preço Bom Ltda", "Jurídica", "08.111.344/0001-12"));
     }
     
-    public List<Cliente> getClientes() {
+    public List<ClienteAux> getClientes() {
         return clientes;
     }
 }
