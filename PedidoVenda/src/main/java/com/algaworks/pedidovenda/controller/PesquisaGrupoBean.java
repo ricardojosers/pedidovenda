@@ -9,6 +9,7 @@
  
 package com.algaworks.pedidovenda.controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,9 @@ import com.algaworks.pedidovenda.model.Grupo;
 
 @Named
 @ViewScoped
-public class PesquisaGrupoBean {
+public class PesquisaGrupoBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     private List<Grupo> grupos;
     
