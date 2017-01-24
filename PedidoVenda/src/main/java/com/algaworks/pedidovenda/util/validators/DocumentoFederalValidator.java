@@ -12,6 +12,8 @@ package com.algaworks.pedidovenda.util.validators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+import com.algaworks.pedidovenda.util.annotation.DocumentoFederal;
+
 
 public class DocumentoFederalValidator implements ConstraintValidator<DocumentoFederal, String> {
 

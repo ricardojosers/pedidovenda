@@ -10,10 +10,12 @@
 package com.algaworks.pedidovenda.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import com.algaworks.pedidovenda.model.Categoria;
 import com.algaworks.pedidovenda.model.Produto;
 
 @Named
@@ -23,6 +25,8 @@ public class CadastroProdutoBean implements Serializable {
     private static final long serialVersionUID = 1L;
     
     private Produto produto;
+    
+    private List<Categoria> categoriasRaizes;
     
     public CadastroProdutoBean() {
         produto = new Produto();
@@ -40,7 +44,9 @@ public class CadastroProdutoBean implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-    
-    
+
+    public List<Categoria> getCategoriasRaizes() {
+        return categoriasRaizes;
+    }
 
 }

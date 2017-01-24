@@ -30,7 +30,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.algaworks.pedidovenda.util.validators.DocumentoFederal;
+import com.algaworks.pedidovenda.util.annotation.DocumentoFederal;
 
 @Entity
 @Table(name="cliente")
