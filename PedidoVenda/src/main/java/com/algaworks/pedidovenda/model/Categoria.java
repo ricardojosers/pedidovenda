@@ -40,7 +40,7 @@ public class Categoria implements Serializable {
     private List<Categoria> subcategorias = new ArrayList<>();
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

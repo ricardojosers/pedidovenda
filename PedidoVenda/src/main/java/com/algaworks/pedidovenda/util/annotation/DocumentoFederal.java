@@ -24,7 +24,7 @@ import com.algaworks.pedidovenda.util.validators.DocumentoFederalValidator;
 @Constraint(validatedBy={DocumentoFederalValidator.class})
 public @interface DocumentoFederal {
 
-    String message() default "{Conteúdo Inválido}";
+    String message() default "Documento Inválido";
     
     Class<?>[] groups() default {};
     
