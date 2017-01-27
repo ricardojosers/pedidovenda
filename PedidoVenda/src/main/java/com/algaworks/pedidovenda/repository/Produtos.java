@@ -16,6 +16,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
@@ -26,6 +27,8 @@ import org.hibernate.criterion.Restrictions;
 
 import com.algaworks.pedidovenda.model.Produto;
 import com.algaworks.pedidovenda.repository.filter.ProdutoFilter;
+import com.algaworks.pedidovenda.service.NegocioException;
+import com.algaworks.pedidovenda.util.annotation.Transactional;
 
 public class Produtos implements Serializable {
 
@@ -37,13 +40,26 @@ public class Produtos implements Serializable {
     public Produto guardar(Produto produto) {
         return manager.merge(produto);
     }
+    
+    @Transactional
+    public void remover(Produto produto) {
+        try {
+            produto = porId(produto.getId());
+            manager.remove(produto);
+            manager.flush();       
+        }
+        catch(PersistenceException e) {
+            throw new NegocioException("Produto não pode ser excluído.");
+        }
+    }
 
     public Produto porSku(String sku) {
         try {
             return manager.createQuery("from Produto where upper(sku) = :sku",
                 Produto.class)
                 .setParameter("sku", sku.toUpperCase())
-                .getSingleResult();        }
+                .getSingleResult();        
+        }
         catch(NoResultException e) {
             return null;
         }
@@ -64,6 +80,10 @@ public class Produtos implements Serializable {
         }
         
         return criteria.addOrder(Order.asc("nome")).list();
+    }
+
+    public Produto porId(Long id) {
+        return manager.find(Produto.class, id);
     }
 
 }
