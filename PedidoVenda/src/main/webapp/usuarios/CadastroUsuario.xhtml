@@ -3,23 +3,27 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">Novo usuário</ui:define>
 
 	<ui:define name="corpo">
+		<f:metadata>
+			<o:viewParam name="usuario" value="#{cadastroUsuarioBean.usuario}"/>
+			<f:event listener="#{cadastroUsuarioBean.inicializar}" type="preRenderView" />
+		</f:metadata>
 
-		<h:form>
+		<h:form id="frmUsuario">
 			<h1>Novo usuário</h1>
 
-			<p:messages id="msgSalvarUsuario" closable="true" />
+			<p:messages autoUpdate="true" id="message" closable="true" />
 
 			<p:toolbar style="margin-top: 20px">
 				<p:toolbarGroup>
 					<p:button value="Novo" outcome="/usuarios/CadastroUsuario" />
 					<p:commandButton value="Salvar" id="botaoSalvar"
-						action="#{cadastroUsuarioBean.salvar}" process="painel"
-						update="msgSalvarUsuario" />
+						action="#{cadastroUsuarioBean.salvar}" update="@form" />
 				</p:toolbarGroup>
 				<p:toolbarGroup align="right">
 					<p:button value="Pesquisa" outcome="/usuarios/PesquisaUsuarios" />
@@ -38,30 +42,44 @@
 
 				<p:outputLabel value="Senha" for="senha" />
 				<p:password id="senha" size="15" maxlength="20"
+					promptLabel="Por favor, digite sua senha."
+					redisplay="true" 
+					feedback="true" weakLabel="Fraca" goodLabel="Boa" strongLabel="Forte"
 					value="#{cadastroUsuarioBean.usuario.senha}" />
 			</p:panelGrid>
 
 			<p:panelGrid columns="2">
-				<p:selectOneMenu id="grupo" value="#{cadastroUsuarioBean.grupo.nome}">
-					<f:selectItem itemLabel="Selecione" itemValue="" />
-					<f:selectItem itemLabel="Administrador" itemValue="Administrador" />
-					<f:selectItem itemLabel="Auxiliares" itemValue="Auxiliares" />
-					<f:selectItem itemLabel="Vendedores" itemValue="Vendedores" />
+				<p:selectOneMenu id="grupo" value="#{cadastroUsuarioBean.novoGrupo}">
+					<f:selectItem itemLabel="Selecione" />
+					<f:selectItems value="#{cadastroUsuarioBean.gruposUsuario}"
+						var="grupo" itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
 				</p:selectOneMenu>
-				<p:commandButton value="Adicionar grupo" style="margin-top: 2px" 
-					action="#{cadastroUsuarioBean.adicionarGrupo}"/>
+				<p:commandButton id="btnAdiciona" value="Adicionar grupo"
+					style="margin-top: 2px"
+					action="#{cadastroUsuarioBean.adicionarGrupo}"
+					process=":frmUsuario:grupo :frmUsuario:btnAdiciona"
+					update=":frmUsuario:gruposTable" />
 			</p:panelGrid>
 
-			<p:dataTable id="gruposTable" value="#{cadastroUsuarioBean.grupos}"
-				var="grupo" style="margin-top: 20px"
+			<p:dataTable id="gruposTable"
+				value="#{cadastroUsuarioBean.usuario.grupos}" var="grupo"
+				style="margin-top: 20px"
 				emptyMessage="Usuário não pertence a nenhum grupo." rows="5">
-				<p:column headerText="Grupo" style="text-align: left; width: 95%">
-					<h:outputText value="#{grupo}" />
+				<p:column headerText="Nome" style="text-align: left; width: 45%">
+					<h:outputText value="#{grupo.nome}" />
+				</p:column>
+
+				<p:column headerText="Descrição"
+					style="text-align: left; width: 50%">
+					<h:outputText value="#{grupo.descricao}" />
 				</p:column>
 
 				<p:column style="width: 5%; text-align: center">
 					<p:commandButton icon="ui-icon-trash" title="Excluir"
-						oncomplete="PF('confirmacaoExclusao').show();" />
+						oncomplete="PF('confirmacaoExclusao').show();">
+						<f:setPropertyActionListener value="#{grupo}" 
+							target="#{cadastroUsuarioBean.grupoASerRemovido}"/>
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 
@@ -71,7 +89,9 @@
 				<p:button value="Não"
 					onclick="PF('confirmacaoExclusao').hide(); return false;" />
 				<p:commandButton value="Sim"
-					oncomplete="PF('confirmacaoExclusao').hide();" />
+					oncomplete="PF('confirmacaoExclusao').hide();"
+					action="#{cadastroUsuarioBean.removerGrupo}" process="@this"
+					update=":frmUsuario:gruposTable" />
 
 			</p:confirmDialog>
 		</h:form>

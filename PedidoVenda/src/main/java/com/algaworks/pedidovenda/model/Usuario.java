@@ -45,7 +45,7 @@ public class Usuario implements Serializable {
     private List<Grupo> grupos = new ArrayList<>();
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

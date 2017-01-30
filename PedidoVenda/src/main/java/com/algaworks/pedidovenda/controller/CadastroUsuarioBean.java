@@ -14,39 +14,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.algaworks.pedidovenda.model.Grupo;
 import com.algaworks.pedidovenda.model.Usuario;
+import com.algaworks.pedidovenda.repository.Grupos;
+import com.algaworks.pedidovenda.service.CadastroUsuarioService;
+import com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
 public class CadastroUsuarioBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
+    @Inject
+    private CadastroUsuarioService cadastroUsuarioService;
+    
+    @Inject
+    private Grupos grupos;
+    
     private Usuario usuario;
-    
-    private Grupo grupo;
-    
-    private List<Grupo> grupos;
+    private List<Grupo> gruposUsuario;
+    private Grupo novoGrupo;
+    private Grupo grupoASerRemovido;
     
     public CadastroUsuarioBean() {
-        usuario = new Usuario();
-        grupo = new Grupo();
-        grupos = new ArrayList<>();
-        
-//        grupos.add("Auxiliares");
-//        grupos.add("Vendedores");
+        limpar();
     }
     
     public void salvar() {
-        System.out.println("Inclusão de Usuário");
+        this.usuario = cadastroUsuarioService.salvar(usuario);
+        FacesUtil.addInfoMessage("Usuário salvo com sucesso!");
+        limpar();
+    }
+    
+    private void limpar() {
+        usuario = new Usuario();
+        gruposUsuario = new ArrayList<>();
     }
     
     public void adicionarGrupo() {
-        System.out.println("Inclusão de Grupo");
-        usuario.getGrupos().add(grupo);
+        usuario.getGrupos().add(novoGrupo);
+    }
+    
+    public void removerGrupo() {
+        usuario.getGrupos().remove(grupoASerRemovido);
+    }
+    
+    public void inicializar() {
+        if(FacesUtil.isNotPostback()) {
+            gruposUsuario = grupos.grupos();
+        }
     }
     
     public Usuario getUsuario() {
@@ -57,19 +77,24 @@ public class CadastroUsuarioBean implements Serializable {
         this.usuario = usuario;
     }
     
-    public Grupo getGrupo() {
-        return grupo;
+    public List<Grupo> getGruposUsuario() {
+        return gruposUsuario;
     }
     
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
+    public Grupo getNovoGrupo() {
+        return novoGrupo;
     }
     
-    public List<Grupo> getGrupos() {
-        return grupos;
+    public void setNovoGrupo(Grupo novoGrupo) {
+        this.novoGrupo = novoGrupo;
     }
     
-    public void setGrupos(List<Grupo> grupos) {
-        this.grupos = grupos;
+    public Grupo getGrupoASerRemovido() {
+        return grupoASerRemovido;
     }
+    
+    public void setGrupoASerRemovido(Grupo grupoASerRemovido) {
+        this.grupoASerRemovido = grupoASerRemovido;
+    }
+
 }

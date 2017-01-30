@@ -49,7 +49,7 @@ public class Produto implements Serializable {
     private Categoria categoria;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

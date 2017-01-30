@@ -1,37 +1,76 @@
 /*
  * @(#)PesquisaUsuariosBean.java
- *
+ * 
  * Copyright 2014-2014, Ricardo Rodrigues.
+ * 
  * @ricardojosers
  * 
  * Todos os direitos reservados.
  */
- 
+
 package com.algaworks.pedidovenda.controller;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import com.algaworks.pedidovenda.model.Usuario;
+import com.algaworks.pedidovenda.repository.Usuarios;
+import com.algaworks.pedidovenda.repository.filter.UsuarioFilter;
+import com.algaworks.pedidovenda.util.jsf.FacesUtil;
 
 @Named
 @ViewScoped
 public class PesquisaUsuariosBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    private List<UsuarioAux> usuarios;
-    
+
+    @Inject
+    private Usuarios usuarios;
+
+    private UsuarioFilter filtro;
+
+    private List<Usuario> usuariosFiltrados;
+
+    private Usuario usuarioSelecionado;
+
     public PesquisaUsuariosBean() {
-        usuarios = new ArrayList<>();
-        usuarios.add(new UsuarioAux("João das Couves", "joaodas_couves42@hotmail.com"));
-        usuarios.add(new UsuarioAux("Maria Abadia das Couves", "mariaabadiadascouves2013@gmail.com"));
-        usuarios.add(new UsuarioAux("João das Couves Júnior", "junior_couves_joao@yahoo.com.br"));
+        filtro = new UsuarioFilter();
+    }
+
+    public void excluir() {
+        usuarios.remover(usuarioSelecionado);
+        usuariosFiltrados.remove(usuarioSelecionado);
+
+        FacesUtil.addInfoMessage("Usuário " + usuarioSelecionado.getNome()
+            + " excluído com sucesso.");
     }
     
-    public List<UsuarioAux> getUsuarios() {
-        return usuarios;
+    public void pesquisar() {
+        usuariosFiltrados = usuarios.filtrados(filtro);
     }
+    
+    public List<Usuario> getUsuariosFiltrados() {
+        return usuariosFiltrados;
+    }
+    
+    public UsuarioFilter getFiltro() {
+        return filtro;
+    }
+    
+    public void setFiltro(UsuarioFilter filtro) {
+        this.filtro = filtro;
+    }
+    
+    public Usuario getUsuarioSelecionado() {
+        return usuarioSelecionado;
+    }
+    
+    public void setUsuarioSelecionado(Usuario usuarioSelecionado) {
+        this.usuarioSelecionado = usuarioSelecionado;
+    }
+
 }
